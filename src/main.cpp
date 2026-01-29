@@ -1,3 +1,4 @@
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 
@@ -36,16 +37,28 @@ int main(int argc, char** argv)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     ///////////////////////////////////////////////////////////////////////
 
+    //////////////////////      load glad     /////////////////////////////
+    if (!gladLoadGL())
+    {
+        std::cerr << "glad Load GL error..\n";
+        glfwTerminate();
+        return -1;
+    }
+    ///////////////////////////////////////////////////////////////////////
+
     //////////////////////     Main Loop      /////////////////////////////
+    glClearColor(1.0f, 1.0f, 0.0f, 1.0f);
     while (!glfwWindowShouldClose(my_g_window_GLFWwindow_window))
     {
-        // glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(my_g_window_GLFWwindow_window);
         glfwPollEvents();
     }
     ///////////////////////////////////////////////////////////////////////
 
     //////////////////////    Print Version   /////////////////////////////
+    std::cout << "renderer: " << glGetString(GL_RENDERER) << std::endl;
+    std::cout << "version: " << glGetString(GL_VERSION) << std::endl;
     ///////////////////////////////////////////////////////////////////////
 
     //////////////////////    END programm    /////////////////////////////

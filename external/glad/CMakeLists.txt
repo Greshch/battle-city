@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 project(GLAD)
 set(PROJECT_NAME glad)
-add_library(${PROJECT_NAME} STATIC src/glad.c)
+add_library(${PROJECT_NAME} src/glad.c) 
 target_include_directories(${PROJECT_NAME} PUBLIC include/)

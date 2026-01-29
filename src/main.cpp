@@ -9,6 +9,11 @@ int my_g_window_int_height = 480;
 const char* my_g_window_str_title = "Game";
 ///////////////////////////////////////////////////////////////////////
 
+////////////////////  callbacks functions  ////////////////////////////
+void my_fun_callback_window_size(GLFWwindow* window, int width, int height);
+void my_fun_callback_key(GLFWwindow* window, int key, int scancode, int action, int mods);
+///////////////////////////////////////////////////////////////////////
+
 int main(int argc, char** argv)
 {
     //////////////////////     Init glfw      /////////////////////////////
@@ -46,6 +51,11 @@ int main(int argc, char** argv)
     }
     ///////////////////////////////////////////////////////////////////////
 
+    //////////////////////    Set callbacks    ////////////////////////////
+    glfwSetWindowSizeCallback(my_g_window_GLFWwindow_window, my_fun_callback_window_size);
+    glfwSetKeyCallback(my_g_window_GLFWwindow_window, my_fun_callback_key);
+    ///////////////////////////////////////////////////////////////////////
+
     //////////////////////     Main Loop      /////////////////////////////
     glClearColor(1.0f, 1.0f, 0.0f, 1.0f);
     while (!glfwWindowShouldClose(my_g_window_GLFWwindow_window))
@@ -66,3 +76,23 @@ int main(int argc, char** argv)
     return 0;
     ///////////////////////////////////////////////////////////////////////
 }
+
+///////////////////////////////////////////////////////////////////////
+void my_fun_callback_window_size(GLFWwindow *window, int width, int height)
+{
+    my_g_window_int_width = width;
+    my_g_window_int_height = height;
+    glViewport(0, 0, my_g_window_int_width, my_g_window_int_height);
+}
+
+void my_fun_callback_key(GLFWwindow *window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_ESCAPE)
+    {
+        if (action == GLFW_PRESS)
+        {
+            glfwSetWindowShouldClose(window, GL_TRUE);
+        }
+    }
+}
+///////////////////////////////////////////////////////////////////////
